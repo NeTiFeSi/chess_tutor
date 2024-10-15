@@ -7,7 +7,7 @@ import chess.engine
 import pandas as pd
 
 GAMER = 'ChaosJournaler'
-FILE_NAME = '2024-08-30'
+FILE_NAME = '2024-09-28'
 
 game_dict = {}
 oponent_move_dict = {}
@@ -114,11 +114,11 @@ for k, v in my_move_dict.items():
 async def engine_evaluation(prepared_dict: dict) -> dict:
     transport, engine = await chess.engine.popen_uci('/usr/bin/stockfish')
     print('Configuring engine...')
-    await engine.configure({'Hash': 12288, 'Threads': 4})
+    await engine.configure({'Hash': 16384, 'Threads': 12})
     start, finish = 0, len(prepared_dict)
 
     result = {}
-    for k, v in prepared_dict.items():
+    for k, v in reversed(prepared_dict.items()):
         start += 1
         print(f'Analyzing position {start} of {finish} ({start * 100 / finish:.2f}%)...')
         board = chess.Board(k)
